@@ -266,3 +266,4 @@ async function seedProducts() {
 
 // Run the seeding function
 seedProducts();
+
