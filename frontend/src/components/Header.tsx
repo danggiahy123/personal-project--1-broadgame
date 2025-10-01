@@ -19,6 +19,12 @@ const Header: React.FC = () => {
             Games
           </Link>
           <Link 
+            to="/shop" 
+            className={location.pathname === '/shop' ? 'active' : ''}
+          >
+            Shop
+          </Link>
+          <Link 
             to="/leaderboard" 
             className={location.pathname === '/leaderboard' ? 'active' : ''}
           >

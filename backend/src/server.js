@@ -50,6 +50,7 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/games', require('./routes/games'));
 app.use('/api/scores', require('./routes/scores'));
+app.use('/api/products', require('./routes/products'));
 
 // Socket.io connection handling
 io.on('connection', (socket) => {

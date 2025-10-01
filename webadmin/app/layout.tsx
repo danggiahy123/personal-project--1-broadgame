@@ -27,6 +27,7 @@ export default function RootLayout({
                   <a href="/admin" className="text-gray-600 hover:text-gray-900">Dashboard</a>
                   <a href="/admin/users" className="text-gray-600 hover:text-gray-900">Users</a>
                   <a href="/admin/games" className="text-gray-600 hover:text-gray-900">Games</a>
+                  <a href="/admin/products" className="text-gray-600 hover:text-gray-900">Products</a>
                   <a href="/admin/scores" className="text-gray-600 hover:text-gray-900">Scores</a>
                   <a href="/admin/analytics" className="text-gray-600 hover:text-gray-900">Analytics</a>
                 </nav>

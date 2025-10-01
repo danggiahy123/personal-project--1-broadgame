@@ -1,119 +1,236 @@
-# BroadGame Project
+# BroadGame - Ứng dụng bán Board Game
 
-Dự án game với Frontend, Backend và Web Admin Panel.
+Ứng dụng bán board game với đầy đủ tính năng CRUD (Create, Read, Update, Delete) sản phẩm.
 
-## Cấu trúc dự án
+## 🚀 Tính năng chính
+
+### Backend (Node.js + Express + MongoDB)
+- ✅ API CRUD đầy đủ cho sản phẩm
+- ✅ Tìm kiếm và lọc sản phẩm
+- ✅ Phân trang (pagination)
+- ✅ Thống kê sản phẩm
+- ✅ Upload hình ảnh
+- ✅ Authentication & Authorization
+- ✅ Socket.io cho real-time features
+
+### Frontend (React + TypeScript)
+- ✅ Trang Shop với tìm kiếm và lọc
+- ✅ Hiển thị sản phẩm Flash Sale
+- ✅ Sản phẩm nổi bật
+- ✅ Pagination
+- ✅ Responsive design
+- ✅ Rating system
+
+### Admin Panel (Next.js + Tailwind CSS)
+- ✅ Quản lý sản phẩm (thêm, sửa, xóa)
+- ✅ Thống kê dashboard
+- ✅ Tìm kiếm và lọc
+- ✅ Pagination
+- ✅ Form validation
+
+## 📁 Cấu trúc dự án
 
 ```
 broadgame/
-├── frontend/          # Frontend Application
-├── backend/           # API Backend (Node.js/Express)
-├── webadmin/          # Admin Panel (Next.js + Tailwind CSS)
-└── README.md
+├── backend/                 # Backend API
+│   ├── src/
+│   │   ├── models/         # MongoDB models
+│   │   ├── routes/         # API routes
+│   │   ├── middleware/     # Middleware functions
+│   │   └── server.js       # Main server file
+│   ├── package.json
+│   └── Dockerfile
+├── frontend/               # React frontend
+│   ├── src/
+│   │   ├── components/     # React components
+│   │   ├── pages/          # Page components
+│   │   └── App.tsx         # Main app component
+│   ├── package.json
+│   └── Dockerfile
+├── webadmin/               # Admin panel
+│   ├── app/
+│   │   ├── admin/          # Admin pages
+│   │   └── layout.tsx      # Layout component
+│   ├── package.json
+│   └── Dockerfile
+└── docker-compose.yml      # Docker orchestration
 ```
 
-## Cài đặt và chạy
+## 🛠️ Cài đặt và chạy
 
-### 1. Backend (Port 3001)
+### 1. Clone repository
+```bash
+git clone <repository-url>
+cd broadgame
+```
 
+### 2. Cài đặt dependencies
+
+#### Backend
 ```bash
 cd backend
 npm install
-cp env.example .env
-# Chỉnh sửa file .env với thông tin của bạn
-npm run dev
 ```
 
-### 2. Frontend
-
+#### Frontend
 ```bash
 cd frontend
 npm install
-npm start
 ```
 
-### 3. Web Admin (Port 3002)
-
+#### Admin Panel
 ```bash
 cd webadmin
 npm install
-npm run dev
 ```
 
-## Tính năng
+### 3. Cấu hình environment
 
-### Frontend
-- 🎮 Trang chủ với danh sách games
-- 👤 Đăng ký/Đăng nhập người dùng
-- 🏆 Bảng xếp hạng
-- 🔄 Real-time updates
-- 📊 Thống kê cá nhân
+Tạo file `.env` trong thư mục `backend`:
+```env
+MONGODB_URI=mongodb://localhost:27017/broadgame
+PORT=3001
+JWT_SECRET=your_jwt_secret_here
+FRONTEND_URL=http://localhost:3000
+```
+
+### 4. Chạy ứng dụng
+
+#### Sử dụng Docker (Khuyến nghị)
+```bash
+docker-compose up -d
+```
+
+#### Chạy thủ công
+
+1. **MongoDB**: Đảm bảo MongoDB đang chạy
+2. **Backend**:
+   ```bash
+   cd backend
+   npm run dev
+   ```
+3. **Frontend**:
+   ```bash
+   cd frontend
+   npm start
+   ```
+4. **Admin Panel**:
+   ```bash
+   cd webadmin
+   npm run dev
+   ```
+
+### 5. Seed dữ liệu mẫu
+```bash
+cd backend
+npm run seed
+```
+
+## 🌐 URLs
+
+- **Frontend**: http://localhost:3000
+- **Backend API**: http://localhost:3001
+- **Admin Panel**: http://localhost:3002
+
+## 📚 API Endpoints
+
+### Products
+- `GET /api/products` - Lấy danh sách sản phẩm (có phân trang, tìm kiếm, lọc)
+- `GET /api/products/:id` - Lấy chi tiết sản phẩm
+- `POST /api/products` - Tạo sản phẩm mới (Admin)
+- `PUT /api/products/:id` - Cập nhật sản phẩm (Admin)
+- `DELETE /api/products/:id` - Xóa sản phẩm (Admin)
+- `GET /api/products/flash-sale` - Lấy sản phẩm Flash Sale
+- `GET /api/products/featured` - Lấy sản phẩm nổi bật
+- `GET /api/products/categories` - Lấy danh sách danh mục
+- `GET /api/products/brands` - Lấy danh sách thương hiệu
+- `GET /api/products/stats` - Lấy thống kê sản phẩm (Admin)
+
+### Query Parameters
+- `page` - Trang hiện tại (mặc định: 1)
+- `limit` - Số sản phẩm mỗi trang (mặc định: 12)
+- `category` - Lọc theo danh mục
+- `search` - Tìm kiếm theo tên, mô tả, thương hiệu
+- `minPrice`, `maxPrice` - Lọc theo khoảng giá
+- `sortBy` - Sắp xếp theo (createdAt, price, name, ratings.average)
+- `sortOrder` - Thứ tự sắp xếp (asc, desc)
+
+## 🎨 Tính năng UI/UX
+
+### Frontend Shop
+- Tìm kiếm sản phẩm theo tên, mô tả, thương hiệu
+- Lọc theo danh mục
+- Sắp xếp theo giá, tên, đánh giá, ngày tạo
+- Hiển thị sản phẩm Flash Sale với carousel
+- Sản phẩm nổi bật
+- Pagination
+- Rating system với sao
+- Responsive design
+
+### Admin Panel
+- Dashboard với thống kê
+- Bảng quản lý sản phẩm
+- Form thêm/sửa sản phẩm
+- Tìm kiếm và lọc
+- Pagination
+- Toast notifications
+
+## 🔧 Công nghệ sử dụng
 
 ### Backend
-- 🔐 Authentication với JWT
-- 👥 Quản lý người dùng
-- 🎮 Quản lý games
-- 🏆 Hệ thống điểm số
-- 🔌 WebSocket cho real-time
-
-### Web Admin
-- 📊 Dashboard tổng quan
-- 👥 Quản lý users
-- 🎮 Quản lý games
-- 📈 Thống kê và báo cáo
-
-## API Endpoints
-
-### Authentication
-- `POST /api/auth/register` - Đăng ký
-- `POST /api/auth/login` - Đăng nhập
-
-### Users
-- `GET /api/users/profile` - Lấy thông tin profile
-- `PUT /api/users/profile` - Cập nhật profile
-- `GET /api/users/leaderboard` - Bảng xếp hạng
-
-### Games
-- `GET /api/games` - Lấy danh sách games
-- `GET /api/games/:id` - Lấy thông tin game
-- `POST /api/games` - Tạo game mới (admin)
-
-### Scores
-- `POST /api/scores` - Nộp điểm
-- `GET /api/scores/my-scores` - Điểm của user
-- `GET /api/scores/game/:gameId` - Bảng xếp hạng game
-
-## Công nghệ sử dụng
+- **Node.js** - Runtime environment
+- **Express.js** - Web framework
+- **MongoDB** - Database
+- **Mongoose** - ODM
+- **JWT** - Authentication
+- **Socket.io** - Real-time communication
+- **Express Validator** - Input validation
+- **Multer** - File upload
 
 ### Frontend
-- React
-- TypeScript
-- Axios
+- **React 18** - UI library
+- **TypeScript** - Type safety
+- **CSS3** - Styling
+- **Fetch API** - HTTP requests
 
-### Web Admin
-- Next.js 14
-- React 18
-- TypeScript
-- Tailwind CSS
-- Axios
-- Recharts
+### Admin Panel
+- **Next.js 14** - React framework
+- **Tailwind CSS** - Utility-first CSS
+- **React Hook Form** - Form handling
+- **React Hot Toast** - Notifications
 
-### Backend
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose
-- JWT
-- Socket.io
-- bcryptjs
+## 📱 Responsive Design
 
-## Môi trường phát triển
+Ứng dụng được thiết kế responsive cho:
+- Desktop (1200px+)
+- Tablet (768px - 1199px)
+- Mobile (< 768px)
 
-- Node.js >= 18
-- MongoDB
-- npm hoặc yarn
+## 🚀 Deployment
 
-## Liên hệ
+### Docker
+```bash
+docker-compose up -d
+```
 
-BroadGame Team
-"# personal-project--1-broadgame" 
+### Manual Deployment
+1. Build frontend: `npm run build`
+2. Build admin: `npm run build`
+3. Start backend: `npm start`
+4. Serve static files với nginx hoặc Apache
+
+## 🤝 Contributing
+
+1. Fork repository
+2. Tạo feature branch
+3. Commit changes
+4. Push to branch
+5. Tạo Pull Request
+
+## 📄 License
+
+MIT License
+
+## 📞 Support
+
+Nếu có vấn đề gì, vui lòng tạo issue trên GitHub repository.
